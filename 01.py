@@ -27,7 +27,7 @@ import helper
 import runner
 
 raw = runner.get_data(1)
-argv = helper.str_to_array(raw)
+argv = helper.to_int_array(helper.str_to_array(raw))
 
 
 def check_sum(data, current_sum, count, match):

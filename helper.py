@@ -8,8 +8,10 @@ def load_mod(day):
 
 
 def str_to_array(data):
-    return np.array([int(i) for i in data.split('\n')])
+    return np.array([str(i) for i in data.split('\n')])
 
+def to_int_array(data):
+    return np.array([int(i) for i in data])
 
 def sort(np_array):
     return np.sort(np_array)

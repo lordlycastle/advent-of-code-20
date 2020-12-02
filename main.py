@@ -3,6 +3,8 @@ import runner
 import helper
 
 d1 = helper.load_mod(1)
+d2 = helper.load_mod(2)
+
 # Instructions:
 # For each day, create a new python file and a puzzle input file consisting
 #  of the day number and then the extension .py or .txt.
@@ -25,3 +27,4 @@ d1 = helper.load_mod(1)
 # day = runner.get_day(max_day=5)
 
 runner.run(day=1)
+runner.run(day=2)
