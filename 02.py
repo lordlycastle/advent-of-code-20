@@ -13,18 +13,31 @@ class InputCodec:
     self.char = matches.group(3)
     self.psswd = matches.group(4)
 
-    self.count = self.psswd.count(self.char)
-    if self.count >= self.min_count and self.count <= self.max_count:
-        self.valid = True
-    else:
-        self.valid = False
-
+    self.char_count = self.psswd.count(self.char)
+    self.p1_valid = False
+    self.p2_valid = False
+    
   def __str__(self):
-    return f'/ {str(self.valid):5} / {self.count:2} => Count: {self.min_count:2} - {self.max_count:2} of {self.char} in self{self.psswd}'
+    return f'/ {str(self.valid):5} / {self.char_count:2} => Count: {self.min_count:2} - {self.max_count:2} of {self.char} in self{self.psswd}'
 
 
 argv = [InputCodec(x) for x in helper.str_to_array(raw)]
 
 
 def part1(data):
-  return len([x for x in argv if x.valid])
+    for i in argv:
+        if i.char_count >= i.min_count and i.char_count <= i.max_count:
+            i.p1_valid = True
+        else:
+            i.p1_valid = False
+
+    return len([x for x in argv if x.p1_valid])
+
+
+def part2(data):
+    for i in argv:
+        if (i.psswd[i.min_count-1] == i.char) != (i.psswd[i.max_count-1] == i.char):
+            i.p2_valid = True
+        else:
+            i.p2_valid = False
+    return len(list(filter(lambda x: x.p2_valid, argv)))
