@@ -1,5 +1,4 @@
 import runner
-import helper
 import re
 
 raw = runner.get_data(4)
@@ -57,26 +56,56 @@ class Passport:
         str_value = ''
         for (key, value) in Passport.keys.items():
             str_value += f'{value}: {getattr(self, value)} \n'
-        str_value += f'Valid => {self.is_valid}'
+        str_value += f'P1 Valid => {self.is_valid_p1} \n'
+        str_value += f'P2 Valid => {self.is_valid_p2}'
         return str_value
 
     def __repr__(self):
         return str(self)
 
     @property
-    def is_valid(self):
-        return self.birth_year is not None \
-               and self.issue_year is not None \
-               and self.expiry_year is not None \
-               and self.height is not None \
-               and self.hair_color is not None \
-               and self.eye_color is not None \
-               and self.passport_id is not None
-        # and self.country_id is not None
+    def is_valid_p1(self):
+        """
+        Checks all the conditions for part 1.
+        :return:
+        """
+        return (self.birth_year
+                and self.issue_year
+                and self.expiry_year
+                and self.height
+                and self.hair_color
+                and self.eye_color
+                and self.passport_id
+                # and self.country_id
+                )
+
+    @property
+    def is_valid_p2(self):
+        """
+        Checks all the conditions for part 2 are met. Each line is the condition of that field.
+        :rtype: bool
+        :return: bool
+        """
+        return (self.is_valid_p1
+                and re.fullmatch(r'\d{4}', self.birth_year) and 2002 >= int(self.birth_year) >= 1920
+                and re.fullmatch(r'\d{4}', self.issue_year) and 2010 <= int(self.issue_year) <= 2020
+                and re.fullmatch(r'\d{4}', self.expiry_year) and 2020 <= int(self.expiry_year) <= 2030
+                and re.fullmatch(r'^\d+(cm|in)$', self.height) and (
+                    150 <= int(str(self.height)[:-2]) <= 193  # cm
+                    if str(self.height).endswith('cm')
+                    else 59 <= int(str(self.height)[:-2]) <= 76  # in
+                )
+                and re.fullmatch(r'#[0-9a-f]{6}', self.hair_color)
+                and self.eye_color in ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth']
+                and re.fullmatch(r'[0-9]{9}', self.passport_id))
 
 
 passports = [Passport(x) for x in argv]
 
 
 def part1(data):
-    return len([p for p in passports if p.is_valid])
+    return len([p for p in passports if p.is_valid_p1])
+
+
+def part2(data):
+    return len([p for p in passports if p.is_valid_p2])
