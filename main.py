@@ -5,6 +5,7 @@ import helper
 d1 = helper.load_mod(1)
 d2 = helper.load_mod(2)
 d3 = helper.load_mod(3)
+d4 = helper.load_mod(4)
 
 # Instructions:
 # For each day, create a new python file and a puzzle input file consisting
@@ -27,7 +28,7 @@ d3 = helper.load_mod(3)
 # max_day is optional, remove it for no limit
 # day = runner.get_day(max_day=5)
 
-upto_day = 3
+upto_day = 4
 for i in range(1, upto_day+1):
     print('-'*20)
     runner.run(day=i)
