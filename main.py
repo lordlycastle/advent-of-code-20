@@ -1,11 +1,13 @@
 # Repl.it AOC Python Runner
 import runner
 import helper
+import numpy as np
 
 d1 = helper.load_mod(1)
 d2 = helper.load_mod(2)
 d3 = helper.load_mod(3)
 d4 = helper.load_mod(4)
+d5 = helper.load_mod(5)
 
 # Instructions:
 # For each day, create a new python file and a puzzle input file consisting
@@ -28,7 +30,7 @@ d4 = helper.load_mod(4)
 # max_day is optional, remove it for no limit
 # day = runner.get_day(max_day=5)
 
-upto_day = 4
+upto_day = 5
 for i in range(1, upto_day+1):
     print('-'*20)
     runner.run(day=i)
